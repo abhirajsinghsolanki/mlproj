@@ -65,5 +65,6 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Bind to all interfaces so the server is reachable on LAN. Turn off debug when exposing the app.
+    app.run(debug=False, host="0.0.0.0", port=5001)
 

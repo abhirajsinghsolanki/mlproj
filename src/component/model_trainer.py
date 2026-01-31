@@ -1,10 +1,13 @@
 import os
 import sys
-from catboost import CatBoostRegressor
+try:
+    from catboost import CatBoostRegressor
+except Exception:
+    CatBoostRegressor = None
 from dataclasses import dataclass
 from sklearn.ensemble import (
-    AdaBoostClassifier,
-    Gradientboostingregressor,
+    AdaBoostRegressor,
+    GradientBoostingRegressor,
     RandomForestRegressor
 )
 from sklearn.linear_model import LinearRegression
@@ -28,11 +31,12 @@ class ModelTrainer:
             models = {
                 "Random Forest": RandomForestRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
-                "Gradient Boosting": Gradientboostingregressor(),
+                "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "CatBoosting Regressor": CatBoostRegressor(),
-                "AdaBoost Regressor": AdaBoostClassifier()
+                "AdaBoost Regressor": AdaBoostRegressor()
             }
+            if CatBoostRegressor is not None:
+                models["CatBoosting Regressor"] = CatBoostRegressor()
             model_report: dict = evaluate_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models)
             best_model_score = max(sorted(model_report.values()))
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
