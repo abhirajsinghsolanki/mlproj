@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Predict</h2>
+  {% if not fields %}
+    <div class="alert alert-info">No feature list found. Upload/train data at `artifacts/train.csv`.</div>
+  {% endif %}
+  <form method="post">
+    <div class="row">
+      {% for f in fields %}
+        <div class="col-md-6 mb-3">
+          <label for="{{ f }}" class="form-label">{{ f }}</label>
+          <input name="{{ f }}" id="{{ f }}" class="form-control" placeholder="Enter {{ f }}" />
+        </div>
+      {% endfor %}
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+{% endblock %}

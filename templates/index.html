@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to the ML Project</h1>
+    <p class="lead">A simple demo web UI for interacting with your model artifacts.</p>
+    <hr class="my-4">
+    <p>Fields detected from training data:</p>
+    {% if fields %}
+      <ul>
+        {% for f in fields %}
+          <li>{{ f }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No training data found (check `artifacts/train.csv`).</p>
+    {% endif %}
+
+    <a class="btn btn-primary btn-lg" href="/predict" role="button">Open Predict Form</a>
+    {% if not model_available %}
+      <div class="alert alert-warning mt-3">No trained model found. Train a model to get predictions.</div>
+    {% endif %}
+  </div>
+{% endblock %}
