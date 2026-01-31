@@ -19,7 +19,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Data Ingestion method starts")
         try:
-            df = pd.read_csv('src/component/data.csv')
+            df = pd.read_csv('notebook/data/stud.csv')
             logging.info("Dataset read as pandas dataframe")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
@@ -41,4 +41,7 @@ class DataIngestion:
         except Exception as e:
             logging.info("Exception occurred at Data Ingestion stage")
             raise CustomException(e, sys)
+if __name__ == "__main__":
+    obj = DataIngestion()
+    obj.initiate_data_ingestion()
         
